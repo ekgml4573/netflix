@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import '../model/model_movie.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
+import '../screen/detail_screen.dart';
+
 class CarouselImage extends StatefulWidget {
   final List<Movie> movies;
 
@@ -58,14 +60,20 @@ class _CarouselImageState extends State<CarouselImage> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Container(
-                child: Column (
+                child: Column(
                   children: [
                     likes[_currentPage]
-                    ? IconButton(onPressed: () {}, icon: Icon(Icons.check),)
-                    : IconButton(onPressed: () {}, icon: Icon(Icons.add),),
+                        ? IconButton(
+                            onPressed: () {},
+                            icon: Icon(Icons.check),
+                          )
+                        : IconButton(
+                            onPressed: () {},
+                            icon: Icon(Icons.add),
+                          ),
                     const Text(
-                        '내가 찜한 콘텐츠',
-                        style: TextStyle(fontSize: 11),
+                      '내가 찜한 콘텐츠',
+                      style: TextStyle(fontSize: 11),
                     ),
                   ],
                 ),
@@ -74,9 +82,8 @@ class _CarouselImageState extends State<CarouselImage> {
                 padding: EdgeInsets.only(right: 10),
                 child: TextButton(
                   style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all<Color>(
-                          Colors.white)
-                  ),
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(Colors.white)),
                   onPressed: () {},
                   child: const Row(
                     children: <Widget>[
@@ -99,8 +106,22 @@ class _CarouselImageState extends State<CarouselImage> {
                 padding: EdgeInsets.only(right: 10),
                 child: Column(
                   children: <Widget>[
-                    IconButton(onPressed: () {}, icon: Icon(Icons.info),),
-                    Text('정보', style: TextStyle(fontSize: 11),)
+                    IconButton(
+                      icon: Icon(Icons.info),
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute<Null>(
+                            fullscreenDialog: true,
+                            builder: (BuildContext context) {
+                              return DetailScreen(
+                                movie: movies[_currentPage],
+                              );
+                            }));
+                      },
+                    ),
+                    Text(
+                      '정보',
+                      style: TextStyle(fontSize: 11),
+                    )
                   ],
                 ),
               )
@@ -126,11 +147,10 @@ List<Widget> makeIndicator(List list, int _currentPage) {
       height: 8,
       margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
       decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        color: _currentPage == i
-          ? Color.fromRGBO(255, 255, 255, 0.9)
-          : Color.fromRGBO(255, 255, 255, 0.4)
-      ),
+          shape: BoxShape.circle,
+          color: _currentPage == i
+              ? Color.fromRGBO(255, 255, 255, 0.9)
+              : Color.fromRGBO(255, 255, 255, 0.4)),
     ));
   }
 
