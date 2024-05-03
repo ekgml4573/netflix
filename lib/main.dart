@@ -5,7 +5,7 @@ import 'package:netflix/screen/more_screen.dart';
 import 'package:netflix/screen/save_screen.dart';
 import 'package:netflix/screen/search_screen.dart';
 import 'package:netflix/widget/bottom_bar.dart';
-import 'package:firebase_options.dart';
+import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
